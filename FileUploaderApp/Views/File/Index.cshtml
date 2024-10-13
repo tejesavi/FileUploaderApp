@@ -1,0 +1,38 @@
+﻿@model IEnumerable<FileUploaderApp.Models.FileModel>
+
+@{
+    ViewData["Title"] = "Uploaded Files";
+}
+
+<h2>Uploaded Files</h2>
+
+<a asp-action="Upload" class="btn btn-success">Upload New File</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th>Download Link</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var file in Model)
+            {
+                <tr>
+                    <td>@file.FileName</td>
+                    <td>
+                        <a href="@file.BlobUrl" target="_blank">Download</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2">No files uploaded yet.</td>
+            </tr>
+        }
+    </tbody>
+</table>
