@@ -7,11 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Optionally, you can add Azure Blob Storage services
-// This allows for dependency injection of BlobServiceClient in your controllers.
+// Add Azure Blob Storage services with dependency injection.
 builder.Services.AddSingleton(x =>
 {
-    string connectionString = builder.Configuration.GetConnectionString("AzureBlobStorage");
+    // Get the connection string from environment variables
+    string connectionString = builder.Configuration.GetConnectionString("AzureBlobStorage") ?? throw new InvalidOperationException("Connection string not found.");
     return new BlobServiceClient(connectionString);
 });
 
